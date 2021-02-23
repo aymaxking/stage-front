@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="col-md-12 col-sm-6 col-xs-12">
+    <div class="panel panel-default" >
+      <div class="panel-heading" >Ajouter une antecedent</div>
+      <div class="panel-body" >
+        <form #f="ngForm" (ngSubmit)="onSaveAntecedent(f.value)"  >
+          <div class="form-group">
+            <label class="control-label">Type du crime</label><br>
+            <select class="search" name="crime"  ngModel >
+              <option value="Meurte" selected>Meurte</option>
+              <option value="Viol">Viol</option>
+              <option value="Torture">Torture</option>
+              <option value="Genocide">genocide</option>
+              <option value="Vol avec violences graves">Vol avec violences graves</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="control-label" >Date du crime</label>
+            <input type="date" class="form-control"  id="dateCrime" name="dateCrime"  required ngModel>
+          </div>
+          <div class="form-group">
+            <label class="control-label">Description</label>
+            <input type="text" class="form-control"  name="description" required  ngModel>
+          </div>
+<!--          <form #f2="ngForm">-->
+<!--            <div class="form-group">-->
+<!--              <label class="control-label">Type du crime</label><br>-->
+<!--              <select class="search" name="crime"  ngModel >-->
+<!--                <option value="Meurte" selected>Meurte</option>-->
+<!--                <option value="Viol">Viol</option>-->
+<!--              </select>-->
+<!--            </div>-->
+<!--            <div class="form-group">-->
+<!--              <label class="control-label" >Date du crime</label>-->
+<!--              <input type="date" class="form-control"  id="dateCrime" name="dateCrime"  required ngModel>-->
+<!--            </div>-->
+<!--            <div class="form-group">-->
+<!--              <label class="control-label">Description</label>-->
+<!--              <input type="text" class="form-control"  name="description" required  ngModel>-->
+<!--            </div>-->
+<!--          </form>-->
+          <button type="submit" class="btn btn-success" style="align-content: center;">Ajouter</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

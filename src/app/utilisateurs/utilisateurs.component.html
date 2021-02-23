@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading">Liste des utilisateurs</div>
+
+    <div class="panel-body">
+      <form #f="ngForm" (ngSubmit)="onChercher(f.value)" >
+        <div class="form-group">
+          <input type="number" class="search" placeholder="Id" name="id" ngModel>
+          <input type="text" class="date-to" placeholder="Matricule"name="matricule" ngModel>
+          <select class="search" name="poste" ngModel >
+            <option value="" selected>Tous</option>
+            <option value="dsadadconsultation">Con</option>
+            <option value="dada">Ge</option>
+          </select>
+          <select class="search" name="type" ngModel >
+            <option value="" selected>Tous</option>
+            <option value="consultation">Consultation</option>
+            <option value="gestion">Gestion</option>
+          </select>
+          <button type="submit" class="btn btn-primary">Chercher</button>
+          <button routerLink="/ajouterutilisateur" class="btn btn-primary">Ajouter</button>
+        </div>
+      </form>
+      <table *ngIf="utilisateurs" class="table table-striped table-bordered">
+        <tr>
+          <th>ID</th><th>Poste</th><th>Matricule</th><th>Type</th><th></th><th></th>
+        </tr>
+        <tr *ngFor="let u of utilisateurs._embedded.utilisateurs">
+          <td>{{u.id}}</td>
+          <td>{{u.poste}}</td>
+          <td>{{u.matricule}}</td>
+          <td>{{u.type}}</td>
+          <td> <a class="btn btn-primary" (click)="onUpdateUtilisateur(u)">Modifier</a></td>
+          <td> <a class="btn btn-danger" (click)="onDeleteUtilisateur(u)">Suprrimer</a></td>
+        </tr>
+      </table>
+      <ul *ngIf="pages" class="nav nav-pills">
+        <li  [ngClass]="i==currentPage?'active':''" *ngFor="let p of pages;let i=index">
+          <a (click)="onPage(i,f.value)">{{i}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

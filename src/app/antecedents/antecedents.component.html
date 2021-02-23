@@ -1,0 +1,47 @@
+
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading">Liste des antecedents</div>
+    <div class="panel-body">
+      <form #f="ngForm" (ngSubmit)="onChercher(f.value)">
+        <div class="form-group">
+          <input type="number" class="search" placeholder="Id" name="id" ngModel>
+          <input type="text" class="date-to" placeholder="Date et Heure du crime"name="dhc" ngModel>
+          <input type="text" class="date-to" placeholder="Date et Heure d'antecedent" name="dha" ngModel>
+          <select class="search" name="crime" ngModel >
+            <option value="" selected>Tous</option>
+            <option value="Meurte">Meurte</option>
+            <option value="Viol">Viol</option>
+            <option value="Torture">Torture</option>
+            <option value="Genocide">genocide</option>
+            <option value="Vol avec violences graves">Vol avec violences graves</option>
+          </select>
+          <button type="submit" class="btn btn-primary">Chercher</button>
+        </div>
+      </form>
+        <table *ngIf="antecedents" class="table table-bordered table-striped">
+        <thead>
+        <tr>
+          <th>ID</th><th>Personne</th><th>Crime</th><th>Date du crime</th><th>Date d'antecedent</th><th>Description</th><th>Sanctions</th><th></th><th></th>
+        </tr>
+        </thead>
+        <tr *ngFor="let a of antecedents._embedded.antecedents">
+          <td>{{a.id}}</td>
+          <td><a routerLink="/personnes" [queryParams]="{pid:a.pid}">Consulter</a></td>
+          <td>{{a.crime}}</td>
+          <td>{{a.dateCrime}}</td>
+          <td>{{a.dateHeureEntecedent}}</td>
+          <td>{{a.description}}</td>
+          <td><a routerLink="/sanction" [queryParams]="{aid:a.id}">Consulter</a></td>
+          <td> <a class="btn btn-primary" (click)="onUpdateAntecedent(a)">Modifier</a></td>
+          <td> <a class="btn btn-danger" (click)="onDeleteAntecedent(a.id)">Suprrimer</a></td>
+        </tr>
+      </table>
+      <ul *ngIf="pages" class="nav nav-pills">
+        <li  [ngClass]="i==currentPage?'active':''" *ngFor="let p of pages;let i=index">
+          <a (click)="onPage(i,f.value)">{{i}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

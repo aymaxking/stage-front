@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="col-md-12 col-sm-6 col-xs-12">
+    <div class="panel panel-default" >
+      <div class="panel-heading" >Ajouter une personne</div>
+      <div class="panel-body" >
+        <form #f="ngForm" (ngSubmit)="onSavePersonne(f.value)"  >
+          <div class="form-group">
+            <label class="control-label">Nom</label>
+            <input type="text" class="form-control"  name="nom" ngModel>
+          </div>
+          <div class="form-group">
+            <label class="control-label">Prenom</label>
+            <input type="text" class="form-control"  name="prenom" ngModel>
+          </div>
+          <div class="form-group">
+            <label class="control-label">Image</label>
+               <input type="file" accept="image/*"  name="image" ngModel>
+            <img [src]="imgUrl" height="200" *ngIf="imgUrl">
+          </div>
+          <div class="form-group">
+            <label class="control-label">Nom du mere</label>
+            <input type="text" class="form-control"  name="nomMere" ngModel>
+          </div>
+          <div class="form-group">
+            <label class="control-label">Nom du pere</label>
+            <input type="text" class="form-control"  name="nomPere" ngModel>
+          </div>
+          <div class="form-group">
+            <label class="control-label">Cin</label>
+            <input type="text" class="form-control"  name="cin" ngModel>
+          </div>
+          <div class="form-group">
+            <label class="control-label">Sexe</label><br>
+            <select class="search" name="sexe" ngModel >
+              <option value="homme">Homme</option>
+              <option value="femme">Femme</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="control-label">Etat civil</label><br>
+            <select class="search" name="etatCivil" ngModel >
+              <option value="celibataire">Celibataire</option>
+              <option value="marie">Marie</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label">Date de naissance</label>
+            <input type="date" class="form-control"  name="dateNaissance" ngModel>
+          </div>
+          <div class="form-group">
+            <label class="control-label">Adresse</label>
+            <input type="text" class="form-control"  name="adresse" ngModel>
+          </div>
+          <button type="submit" class="btn btn-success" style="align-content: center;">Ajouter</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

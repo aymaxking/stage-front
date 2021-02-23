@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading">Liste des operations</div>
+
+    <div class="panel-body">
+      <form #f="ngForm" (ngSubmit)="onChercher(f.value)" >
+        <div class="form-group">
+          <input type="number" class="search" placeholder="Id" name="id" ngModel>
+          <input type="text" class="date-to" placeholder="Date et heure d'operation"name="dho" ngModel>
+          <select class="search" name="type" ngModel >
+            <option value="" selected>Tous</option>
+            <option value="ajout">Ajout</option>
+            <option value="modifier">Modification</option>
+            <option value="suppression">Suppression</option>
+          </select>
+          <select class="search" name="etype" ngModel >
+            <option value="" selected>Tous</option>
+            <option value="personne">Personne</option>
+            <option value="antecedent">Antecedent</option>
+          </select>
+          <button type="submit" class="btn btn-primary">Chercher</button>
+        </div>
+      </form>
+      <table *ngIf="operations" class="table table-striped table-bordered">
+        <tr>
+          <th>ID</th><th>Utilisateur</th><th>Type d'operation</th><th>Element</th><th>Type d'element</th><th>Date et heure</th><th></th><th></th>
+        </tr>
+        <tr *ngFor="let o of operations._embedded.operations">
+          <td>{{o.id}}</td>
+          <td><a routerLink="/utilisateurs" [queryParams]="{uid:o.uid}">Consulter</a></td>
+          <td>{{o.typeOperation}}</td>
+          <td>{{o.etype}}</td>
+          <td *ngIf="o.etype == 'Personne' "><a routerLink="/personnes" [queryParams]="{pid:o.eid}">Consulter</a></td>
+          <td *ngIf="o.etype == 'antecedent' "><a routerLink="/antecedents" [queryParams]="{aid:o.eid}">Consulter</a></td>
+          <td>{{o.dateOperation}}</td>
+          <td> <a class="btn btn-primary" (click)="onUpdateOpeartion(o)">Modifier</a></td>
+          <td> <a class="btn btn-danger" (click)="onDeleteOperation(o)">Suprrimer</a></td>
+        </tr>
+      </table>
+      <ul *ngIf="pages" class="nav nav-pills">
+        <li  [ngClass]="i==currentPage?'active':''" *ngFor="let p of pages;let i=index">
+          <a (click)="onPage(i,f.value)">{{i}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
