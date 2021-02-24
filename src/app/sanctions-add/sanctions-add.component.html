@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="col-md-12 col-sm-6 col-xs-12">
+    <div class="panel panel-default" >
+      <div class="panel-heading" >Ajouter une antecedent</div>
+      <div class="panel-body" >
+        <form #f="ngForm" (ngSubmit)="onSaveSanction(f.value)"  >
+          <div class="form-group">
+            <label class="control-label">Type du crime</label><br>
+            <select class="search" name="genreSanction"  ngModel >
+              <option value="emprisonnement" selected>Emprisonnement</option>
+              <option value="amende">Amende</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="control-label" >Nombre</label>
+            <input type="number" class="form-control"  id="nombre" name="nombre"  required ngModel>
+          </div>
+          <button type="submit" class="btn btn-success" style="align-content: center;">Ajouter</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
