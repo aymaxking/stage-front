@@ -1,0 +1,29 @@
+<br><br><br>
+<div class="ncontaier" style="background: white">
+  <div class="col-md-12 col-sm-6 col-xs-12">
+    <div class="panel panel-default" >
+      <div class="panel-heading"style="background: #337AB7;text-align: center;font-size: 18px;color: white" >Modifier un utilisateur</div>
+      <div class="panel-body" >
+        <form #f="ngForm" (ngSubmit)="onEditUtilisateur(f.value)"  *ngIf="utlisateur" >
+          <div class="form-group">
+            <label class="control-label">Email</label>
+            <input type="text" class="form-control"  name="login" [(ngModel)]="utlisateur.login" ngModel>
+          </div>
+          <div class="form-group">
+            <label class="control-label">Matricule</label>
+            <input type="text" class="form-control"  name="matricule" [(ngModel)]="utlisateur.matricule" ngModel>
+          </div>
+          <div class="form-group">
+            <label *ngIf="type!='admin'" class="control-label">Type</label><br>
+            <select *ngIf="type!='admin'" class="search" name="type" [(ngModel)]="utlisateur.type" ngModel >
+              <option value="consultation">Consultation</option>
+              <option value="gestion">Gestion</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-success" style="align-content: center;">Modifier</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

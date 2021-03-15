@@ -1,6 +1,17 @@
-
-<div class="container">
-  <div class="panel panel-primary">
+<nav class="navbar navbar-inverse" >
+  <div class="container-fluid" >
+    <ul class="nav navbar-nav">
+      <li *ngIf="type=='admin'"><a routerLink="/utilisateurs">Utilisateurs</a></li>
+      <li *ngIf="type=='admin'"><a routerLink="/journal">Journal</a></li>
+      <li ><a routerLink="/personnes">Personnes</a></li>
+      <li ><a routerLink="/antecedents">Antecedents</a></li>
+      <li ><a routerLink="/sanction">Sanctions</a></li>
+      <li ><a routerLink="/changermdp">Parametres</a></li>
+      <li style="alignment: right" ><a (click)="logout()" >Déconnexion</a></li>
+    </ul>
+  </div>
+</nav>
+<div class="container" style="background: white">  <div class="panel panel-primary">
     <div class="panel-heading">Liste des antecedents</div>
     <div class="panel-body">
       <form #f="ngForm" (ngSubmit)="onChercher(f.value)">
@@ -22,7 +33,7 @@
         <table *ngIf="antecedents" class="table table-bordered table-striped">
         <thead>
         <tr>
-          <th>ID</th><th>Personne</th><th>Crime</th><th>Date du crime</th><th>Date d'antecedent</th><th>Description</th><th>Sanctions</th><th></th><th></th>
+          <th>ID</th><th>Personne</th><th>Crime</th><th>Date du crime</th><th>Date d'antecedent</th><th>Description</th><th>Sanctions</th><th *ngIf="type=='gestion'"></th><th *ngIf="type=='gestion'"></th><th *ngIf="type=='gestion'"></th>
         </tr>
         </thead>
         <tr *ngFor="let a of antecedents._embedded.antecedents">
@@ -33,9 +44,9 @@
           <td>{{a.dateHeureEntecedent}}</td>
           <td>{{a.description}}</td>
           <td><a routerLink="/sanction" [queryParams]="{aid:a.id}">Consulter</a></td>
-          <td><a routerLink="/ajoutersanction" [queryParams]="{aid:a.id}" >Ajouter une sanction</a></td>
-          <td> <a class="btn btn-primary" (click)="onUpdateAntecedent(a)">Modifier</a></td>
-          <td> <a class="btn btn-danger" (click)="onDeleteAntecedent(a.id)">Suprrimer</a></td>
+          <td *ngIf="type=='gestion'"><a routerLink="/ajoutersanction" [queryParams]="{aid:a.id}" >Ajouter une sanction</a></td>
+          <td *ngIf="type=='gestion'"><a class="btn btn-primary" (click)="onUpdateAntecedent(a.id)">Modifier</a></td>
+          <td *ngIf="type=='gestion'"> <a class="btn btn-danger" (click)="onDeleteAntecedent(a.id)">Suprrimer</a></td>
         </tr>
       </table>
       <ul *ngIf="pages" class="nav nav-pills">

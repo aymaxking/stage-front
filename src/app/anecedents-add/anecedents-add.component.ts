@@ -9,6 +9,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class AnecedentsAddComponent implements OnInit {
   idpersonne = 0;
+  type = localStorage.getItem("type")
 
   constructor(private catService:CatalogueService,private  router:Router,private activatedRoute:ActivatedRoute) {
     this.activatedRoute.queryParams.subscribe(data=>{
@@ -18,10 +19,18 @@ export class AnecedentsAddComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(!localStorage.getItem("isLogin"))
+      this.router.navigateByUrl("")
+    else{
+      if(localStorage.getItem("type")=="admin")
+        this.router.navigateByUrl("/utilisateurs")
+      else if(localStorage.getItem("type")=="consultation")
+        this.router.navigateByUrl("/personnes")
+    }
   }
 
   onSaveAntecedent(value: any) {
-    this.catService.saveAntecedent(this.catService.host+"/listAntecedents/1/"+this.idpersonne,value)
+    this.catService.saveAntecedent(this.catService.host+"/listAntecedents/"+localStorage.getItem("id")+"/"+this.idpersonne,value)
       .subscribe(res=>{
         this.router.navigateByUrl("/antecedents");
       },err => {

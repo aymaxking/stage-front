@@ -1,0 +1,30 @@
+<br><br><br>
+<div class="container" style="background: white">  <div class="col-md-12 col-sm-6 col-xs-12">
+    <div class="panel panel-default" >
+      <div class="panel-heading"style="background: #337AB7;text-align: center;font-size: 18px;color: white" >Modifier une antecedent</div>
+      <div class="panel-body" >
+        <form #f="ngForm" (ngSubmit)="onEditAntecedent(f.value)"  *ngIf="antecedent" >
+          <div class="form-group">
+            <label class="control-label">Type du crime</label><br>
+            <select class="search" name="crime"   [(ngModel)]="antecedent.crime" ngModel >
+              <option value="Meurte" selected>Meurte</option>
+              <option value="Viol">Viol</option>
+              <option value="Torture">Torture</option>
+              <option value="Genocide">genocide</option>
+              <option value="Vol avec violences graves">Vol avec violences graves</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="control-label" >Date du crime</label>
+            <input type="date" class="form-control"  id="dateCrime" name="dateCrime"  [(ngModel)]="antecedent.dateCrime" required ngModel>
+          </div>
+          <div class="form-group">
+            <label class="control-label">Description</label>
+            <input type="text" class="form-control"  name="description" [(ngModel)]="antecedent.description" required  ngModel>
+          </div>
+          <button type="submit" class="btn btn-success" style="align-content: center;">Modifier</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

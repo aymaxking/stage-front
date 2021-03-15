@@ -1,0 +1,32 @@
+<br><br><br>
+
+<div class="container" style="background: white">  <div class="col-md-12 col-sm-6 col-xs-12">
+    <div class="panel panel-default" >
+      <div class="panel-heading"style="background: #337AB7;text-align: center;font-size: 18px;color: white" >Modifier une sanction</div>
+      <div class="panel-body" >
+        <form #f="ngForm" (ngSubmit)="onEditSanction(f.value)" *ngIf="sanction" >
+          <div class="form-group">
+            <label class="control-label">Type du crime</label><br>
+            <select class="search" name="genreSanction" [(ngModel)]="sanction.genreSanction"  ngModel >
+              <option value="emprisonnement" selected>Emprisonnement</option>
+              <option value="amende">Amende</option>
+            </select>
+          </div>
+          <div class="form-group" *ngIf="sanction.genreSanction == 'emprisonnement'">
+            <label class="control-label">Type du crime</label><br>
+            <select class="search" name="et" [(ngModel)]="sanction.et"  ngModel >
+              <option value="Ans" selected>Ans</option>
+              <option value="Mois">Mois</option>
+              <option value="Jours">Jours</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="control-label" >Nombre</label>
+            <input type="number" class="form-control"  id="nombre" name="nombre"  [(ngModel)]="sanction.nombre" required ngModel>
+          </div>
+          <button type="submit" class="btn btn-success" style="align-content: center;">Modifier</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

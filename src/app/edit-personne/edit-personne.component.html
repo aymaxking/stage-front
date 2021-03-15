@@ -1,0 +1,58 @@
+<br><br><br>
+
+<div class="container" style="background: white">  <div class="col-md-12 col-sm-6 col-xs-12">
+    <div class="panel panel-default" >
+      <div class="panel-heading"style="background: #337AB7;text-align: center;font-size: 18px;color: white" >Modifier une personne</div>
+      <div class="panel-body" >
+        <form #f="ngForm" (ngSubmit)="onEditPersonne(f.value)" *ngIf="personne">
+          <div class="form-group">
+            <label class="control-label">Nom</label>
+            <input type="text" class="form-control"  name="nom" [(ngModel)]="personne.nom"  ngModel>
+          </div>
+        <th>
+          <div class="form-group">
+            <label class="control-label">Prenom</label>
+            <input type="text" class="form-control"  name="prenom"  [(ngModel)]="personne.prenom" ngModel>
+          </div>
+          <div class="form-group">
+            <label class="control-label">Nom du mere</label>
+            <input type="text" class="form-control"  name="nomMere"  [(ngModel)]="personne.nomMere" ngModel>
+          </div>
+          <div class="form-group">
+            <label class="control-label">Nom du pere</label>
+            <input type="text" class="form-control"  name="nomPere" [(ngModel)]="personne.nomPere" ngModel>
+          </div>
+          <div class="form-group">
+            <label class="control-label">Cin</label>
+            <input type="text" class="form-control"  name="cin"  [(ngModel)]="personne.cin" ngModel>
+          </div>
+          <div class="form-group">
+            <label class="control-label">Sexe</label><br>
+            <select class="search" name="sexe"  [(ngModel)]="personne.sexe" ngModel >
+              <option value="homme">Homme</option>
+              <option value="femme">Femme</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="control-label">Etat civil</label><br>
+            <select class="search" name="etatCivil"  [(ngModel)]="personne.etatCivil" ngModel >
+              <option value="celibataire">Celibataire</option>
+              <option value="marie">Marie</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label">Date de naissance</label>
+            <input type="date" class="form-control"  name="dateNaissance" [(ngModel)]="personne.dateNaissance" ngModel>
+          </div>
+          <div class="form-group">
+            <label class="control-label">Adresse</label>
+            <input type="text" class="form-control"  name="adresse" [(ngModel)]="personne.adresse" ngModel>
+          </div>
+          <button type="submit" class="btn btn-success" >Modifier</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

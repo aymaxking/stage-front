@@ -1,4 +1,16 @@
-<div class="container">
+<nav class="navbar navbar-inverse" >
+  <div class="container-fluid" >
+    <ul class="nav navbar-nav">
+      <li *ngIf="type=='admin'"><a routerLink="/utilisateurs">Utilisateurs</a></li>
+      <li *ngIf="type=='admin'"><a routerLink="/journal">Journal</a></li>
+      <li ><a routerLink="/personnes">Personnes</a></li>
+      <li ><a routerLink="/antecedents">Antecedents</a></li>
+      <li ><a routerLink="/sanction">Sanctions</a></li>
+      <li ><a routerLink="/changermdp">Parametres</a></li>
+      <li style="alignment: right" ><a (click)="logout()" >Déconnexion</a></li>    </ul>
+  </div>
+</nav>
+<div class="container" style="background: white">
   <div class="panel panel-primary">
     <div class="panel-heading">Liste des sanctions</div>
     <div class="panel-body">
@@ -16,15 +28,16 @@
       </form>
       <table *ngIf="sanctions" class="table table-striped table-bordered">
         <tr>
-          <th>ID</th><th>Antecedent</th><th>Type</th><th>Nombre</th><th></th><th></th>
+          <th>ID</th><th>Antecedent</th><th>Type</th><th>Valeur</th><th *ngIf="type=='gestion'"></th><th *ngIf="type=='gestion'"></th>
         </tr>
         <tr *ngFor="let s of sanctions._embedded.sanctions">
           <td>{{s.id}}</td>
           <td><a routerLink="/antecedents" [queryParams]="{aid:s.aid}">Consulter</a></td>
           <td>{{s.genreSanction}}</td>
-          <td>{{s.nombre}}</td>
-          <td> <a class="btn btn-primary" (click)="onUpdateSanction(s)">Modifier</a></td>
-          <td> <a class="btn btn-danger" (click)="onDeleteSanction(s)">Suprrimer</a></td>
+          <td *ngIf="s.et=='Ans'||s.et=='Mois'||s.et=='Jours'" >{{s.nombre+" "+s.et}} </td>
+          <td *ngIf="s.et!='Ans'&&s.et!='Mois'&&s.et!='Jours'" >{{s.nombre+" DH"}} </td>
+          <td *ngIf="type=='gestion'"> <a class="btn btn-primary" (click)="onUpdateSanction(s.id)">Modifier</a></td>
+          <td *ngIf="type=='gestion'"> <a class="btn btn-danger" (click)="onDeleteSanction(s.id)">Suprrimer</a></td>
         </tr>
       </table>
       <ul *ngIf="pages" class="nav nav-pills">

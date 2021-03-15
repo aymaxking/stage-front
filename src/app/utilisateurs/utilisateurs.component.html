@@ -1,7 +1,19 @@
-<div class="container">
-  <div class="panel panel-primary">
-    <div class="panel-heading">Liste des utilisateurs</div>
 
+
+<nav class="navbar navbar-inverse" >
+  <div class="container-fluid" >
+    <ul class="nav navbar-nav">
+      <li ><a routerLink="/utilisateurs">Utilisateurs</a></li>
+      <li ><a routerLink="/journal">Journal</a></li>
+      <li ><a routerLink="/personnes">Personnes</a></li>
+      <li ><a routerLink="/antecedents">Antecedents</a></li>
+      <li ><a routerLink="/sanction">Sanctions</a></li>
+      <li ><a routerLink="/changermdp">Parametres</a></li>
+      <li style="alignment: right" ><a (click)="logout()" >Déconnexion</a></li>    </ul>
+  </div>
+</nav>
+<div class="container" style="background: white">  <div class="panel panel-primary">
+    <div class="panel-heading">Liste des utilisateurs</div>
     <div class="panel-body">
       <form #f="ngForm" (ngSubmit)="onChercher(f.value)" >
         <div class="form-group">
@@ -12,7 +24,7 @@
             <option value="consultation">Consultation</option>
             <option value="gestion">Gestion</option>
           </select>
-          <button type="submit" class="btn btn-primary">Chercher</button>
+          <button type="submit" style="margin-right: 15px;" class="btn btn-primary">Chercher</button>
           <button routerLink="/ajouterutilisateur" class="btn btn-primary">Ajouter</button>
         </div>
       </form>
@@ -25,8 +37,8 @@
           <td>{{u.login}}</td>
           <td>{{u.matricule}}</td>
           <td>{{u.type}}</td>
-          <td> <a class="btn btn-primary" (click)="onUpdateUtilisateur(u)">Modifier</a></td>
-          <td> <a class="btn btn-danger" (click)="onDeleteUtilisateur(u)">Suprrimer</a></td>
+          <td> <a class="btn btn-primary" (click)="onUpdateUtilisateur(u.id)">Modifier</a></td>
+          <td> <a class="btn btn-danger" (click)="onDeleteUtilisateur(u.id)">Suprrimer</a></td>
         </tr>
       </table>
       <ul *ngIf="pages" class="nav nav-pills">

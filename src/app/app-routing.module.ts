@@ -10,6 +10,11 @@ import {UtilisateursAddComponent} from './utilisateurs-add/utilisateurs-add.comp
 import {AnecedentsAddComponent} from './anecedents-add/anecedents-add.component';
 import {LoginComponent} from './login/login.component';
 import {SanctionsAddComponent} from './sanctions-add/sanctions-add.component';
+import {EditPersonneComponent} from './edit-personne/edit-personne.component';
+import {EditSanctionComponent} from './edit-sanction/edit-sanction.component';
+import {EditAntecedentComponent} from './edit-antecedent/edit-antecedent.component';
+import {EditUtilisateurComponent} from './edit-utilisateur/edit-utilisateur.component';
+import {ChangePassComponent} from './change-pass/change-pass.component';
 
 const routes: Routes = [
   {
@@ -40,10 +45,22 @@ const routes: Routes = [
     path: "ajoutersanction",component:SanctionsAddComponent
   },
   {
-    path: "login",component:LoginComponent
+    path: "modifierpersonne/:id",component:EditPersonneComponent
   },
   {
-    path: "",redirectTo:"/journal",pathMatch:'full'
+    path: "modifierutilisateur/:id",component:EditUtilisateurComponent
+  },
+  {
+    path: "modifierantecedent/:id",component:EditAntecedentComponent
+  },
+  {
+    path: "modifiersanction/:id",component:EditSanctionComponent
+  },
+  {
+    path: "changermdp",component:ChangePassComponent
+  },
+  {
+    path: "",component:LoginComponent
   }
 ];
 

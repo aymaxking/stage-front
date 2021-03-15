@@ -1,5 +1,16 @@
-<div class="container">
-  <div class="panel panel-primary">
+<nav class="navbar navbar-inverse" >
+  <div class="container-fluid" >
+    <ul class="nav navbar-nav">
+      <li *ngIf="type=='admin'"><a routerLink="/utilisateurs">Utilisateurs</a></li>
+      <li *ngIf="type=='admin'"><a routerLink="/journal">Journal</a></li>
+      <li ><a routerLink="/personnes">Personnes</a></li>
+      <li ><a routerLink="/antecedents">Antecedents</a></li>
+      <li ><a routerLink="/sanction">Sanctions</a></li>
+      <li ><a routerLink="/changermdp">Parametres</a></li>
+      <li style="alignment: right" ><a (click)="logout()" >Déconnexion</a></li>    </ul>
+  </div>
+</nav>
+<div class="container" style="background: white">  <div class="panel panel-primary">
     <div class="panel-heading">Liste des personnes</div>
 
 
@@ -7,31 +18,35 @@
       <div class="search-container">
         <form #f="ngForm" (ngSubmit)="onChercher(f.value)">
           <div class="form-group">
-          <input type="number" class="search" placeholder="Id" name="id" ngModel>
-        <input type="text" class="date-from" placeholder="Nom" name="nom" ngModel>
-        <input type="text" class="date-to" placeholder="Prenom"name="prenom" ngModel>
-          <input type="text" class="date-to" placeholder="Cin"name="cin" ngModel>
-          <select class="search" name="sexe" ngModel >
+          <input type="number"  class="search" placeholder="Id" name="id" ngModel>
+        <input type="text"  class="date-from" placeholder="Nom" name="nom" ngModel>
+        <input type="text"  class="date-to" placeholder="Prenom"name="prenom" ngModel>
+          <input type="text"  class="date-to" placeholder="Cin"name="cin" ngModel>
+          <select class="search"  name="sexe" ngModel >
             <option value="" selected>Tous</option>
             <option value="homme">Homme</option>
             <option value="femme">Femme</option>
           </select>
-          <select class="search" name="etatcivil" ngModel >
+          <select class="search"   name="etatcivil" ngModel >
             <option value="" selected>Tous</option>
             <option value="celibataire" selected>Celibataire</option>
             <option value="marie">Marie</option>
           </select>
-          <button type="submit" class="btn btn-primary">Chercher</button>
-            <button routerLink="/ajouterpersonne" class="btn btn-primary">Ajouter</button>
+          <button type="submit"  style="margin-right: 15px;" class="btn btn-primary">Chercher</button>
+            <button *ngIf="type=='gestion'" routerLink="/ajouterpersonne" class="btn btn-primary">Ajouter</button>
           </div>
         </form>
       </div>
       <table *ngIf="personnes" class="table table-striped table-bordered" >
         <tr>
-          <th>ID</th><th>Nom</th><th>Prenom</th><th>Cin</th><th>Sexe</th><th>Etat civil</th><th>Nom du mere</th><th>Nom du pere</th><th>Date de naissance</th><th>Adresse</th><th>Les antecedents</th><th></th><th></th><th></th>
+          <th>ID</th><th>Image</th><th>Nom</th><th>Prenom</th><th>Cin</th><th>Sexe</th><th>Etat civil</th><th>Nom du mere</th><th>Nom du pere</th><th>Date de naissance</th><th>Adresse</th><th>Les antecedents</th><th *ngIf="type=='gestion'"></th><th *ngIf="type=='gestion'"></th><th *ngIf="type=='gestion'"></th>
         </tr>
         <tr *ngFor="let p of personnes._embedded.personnes">
           <td>{{p.id}}</td>
+          <td>
+<!--            <img  src="{{atob(p.profilePicture)}}"/>-->
+            <img class="zoom" [src]="atob(p.profilePicture)"  width="60" height="60"/>
+          </td>
           <td>{{p.nom}}</td>
           <td>{{p.prenom}}</td>
           <td>{{p.cin}}</td>
@@ -42,9 +57,9 @@
           <td>{{p.dateNaissance}}</td>
           <td>{{p.adresse}}</td>
           <td><a routerLink="/antecedents" [queryParams]="{pid:p.id}">Consulter</a></td>
-          <td><a routerLink="/ajouterantecedent" [queryParams]="{pid:p.id}" >Ajouter une antecedent</a></td>
-          <td> <a class="btn btn-primary" (click)="onUpdatePersonne(p)">Modifier</a></td>
-          <td> <a class="btn btn-danger" (click)="onDeletePersonne(p.id)">Suprrimer</a></td>
+          <td *ngIf="type=='gestion'"><a routerLink="/ajouterantecedent" [queryParams]="{pid:p.id}" >Ajouter une antecedent</a></td>
+          <td *ngIf="type=='gestion'"> <a class="btn btn-primary" (click)="onUpdatePersonne(p.id)">Modifier</a></td>
+          <td *ngIf="type=='gestion'"> <a class="btn btn-danger" (click)="onDeletePersonne(p.id)">Suprrimer</a></td>
         </tr>
       </table>
       <ul *ngIf="pages" class="nav nav-pills">

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CatalogueService} from '../services/catalogue.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-sanction',
@@ -16,8 +16,10 @@ export class SanctionComponent implements OnInit {
   public currentPage:number=0;
   public totalPages: number=0;
   public pages: Array<number>=Array();
+  type = localStorage.getItem("type")
 
-  constructor(private catService:CatalogueService,private activatedRoute:ActivatedRoute) {
+
+  constructor(private catService:CatalogueService,private activatedRoute:ActivatedRoute,private router:Router) {
     this.activatedRoute.queryParams.subscribe(data=>{
         this.idantecedent=data.aid;
       this.idsanction=data.sid;
@@ -49,6 +51,8 @@ export class SanctionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(!localStorage.getItem("isLogin"))
+      this.router.navigateByUrl("")
 
   }
 
@@ -66,13 +70,13 @@ export class SanctionComponent implements OnInit {
   }
 
   onUpdateSanction(s: any) {
-
+    this.router.navigateByUrl("modifiersanction/"+s)
   }
 
   onDeleteSanction(s: any) {
     let conf=confirm("Etes vous sure?")
     if(conf) {
-      this.catService.deleteSanction(s._links.self.href)
+      this.catService.deleteSanction(s+"/"+localStorage.getItem("id"))
         .subscribe(data=>{
           this.sanctions=data;
         },err => {
@@ -95,5 +99,11 @@ export class SanctionComponent implements OnInit {
   onPage(i: number, value: any) {
     this.currentPage=i;
     this.onGetSanctions();
+  }
+
+
+  logout() {
+    localStorage.clear()
+    this.router.navigateByUrl("")
   }
 }

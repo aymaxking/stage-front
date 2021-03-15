@@ -16,39 +16,39 @@ export class CatalogueService {
 
   public getAntecedentsBy(id:string,dc:string,crime:string,da:string,page:number,size:number){
       if(id==""||id==null)
-      return this.httpClient.get(this.host+"/antecedents/search/by?datecri="+dc+"&crime="+crime+"&dateant="+da+"&page="+page+"$size="+size)
-    return this.httpClient.get(this.host+"/antecedents/search/byId?mc="+id+"&page="+page+"$size="+size)
+      return this.httpClient.get(this.host+"/antecedents/search/by?datecri="+dc+"&crime="+crime+"&dateant="+da+"&page="+page+"&size="+size)
+    return this.httpClient.get(this.host+"/antecedents/search/byId?mc="+id+"&page="+page+"&size="+size)
   }
   public getAntecedentsByPersonne(id:string,page:number,size:number){
-    return this.httpClient.get(this.host+"/antecedents/search/byPid?mc="+id+"&page="+page+"$size="+size)
+    return this.httpClient.get(this.host+"/antecedents/search/byPid?mc="+id+"&page="+page+"&size="+size)
   }
   public getOperationBy(id:string,date:string,type:string,etype:string,page:number,size:number){
     if(id==""||id==null)
-      return this.httpClient.get(this.host+"/operations/search/by?date="+date+"&type="+type+"&etype="+etype+"&page="+page+"$size="+size)
-    return this.httpClient.get(this.host+"/operations/search/byId?mc="+id+"&page="+page+"$size="+size)
+      return this.httpClient.get(this.host+"/operations/search/by?date="+date+"&type="+type+"&etype="+etype+"&page="+page+"&size="+size)
+    return this.httpClient.get(this.host+"/operations/search/byId?mc="+id+"&page="+page+"&size="+size)
   }
   public getUtilisateurBy(id:string,type:string,matricule:string,page:number,size:number){
     if(id==""||id==null)
-      return this.httpClient.get(this.host+"/utilisateurs/search/by?type="+type+"&matricule="+matricule+"&page="+page+"$size="+size)
-    return this.httpClient.get(this.host+"/utilisateurs/search/byId?mc="+id+"&page="+page+"$size="+size)
+      return this.httpClient.get(this.host+"/utilisateurs/search/by?type="+type+"&matricule="+matricule+"&page="+page+"&size="+size)
+    return this.httpClient.get(this.host+"/utilisateurs/search/byId?mc="+id+"&page="+page+"&size="+size)
   }
   public getPersonneBy(id:string,nom:string,prenom:string,cin:string,sexe:string,etatcivil:string,page:number,size:number){
     if(id==""||id==null)
-      return this.httpClient.get(this.host+"/personnes/search/by?nom="+nom+"&prenom="+prenom+"&cin="+cin+"&sexe="+sexe+"&etat="+etatcivil+"&page="+page+"$size="+size)
-    return this.httpClient.get(this.host+"/personnes/search/byId?mc="+id+"&page="+page+"$size="+size)
+      return this.httpClient.get(this.host+"/personnes/search/by?nom="+nom+"&prenom="+prenom+"&cin="+cin+"&sexe="+sexe+"&etat="+etatcivil+"&page="+page+"&size="+size)
+    return this.httpClient.get(this.host+"/personnes/search/byId?mc="+id+"&page="+page+"&size="+size)
   }
   public getSanctionBy(id:string,genre:string,nombre:string,page:number,size:number){
     if(nombre==null) nombre=""
       if(id==""||id==null)
-      return this.httpClient.get(this.host+"/sanctions/search/by?genre="+genre+"&nombre="+nombre+"&page="+page+"$size="+size)
-    return this.httpClient.get(this.host+"/sanctions/search/byId?mc="+id+"&page="+page+"$size="+size)
+      return this.httpClient.get(this.host+"/sanctions/search/by?genre="+genre+"&nombre="+nombre+"&page="+page+"&size="+size)
+    return this.httpClient.get(this.host+"/sanctions/search/byId?mc="+id+"&page="+page+"&size="+size)
   }
   public getAntecedents(page:number,size:number){
 
     return this.httpClient.get(this.host+"/antecedents?page="+page+"&size="+size);
   }
   public getOperations(page:number,size:number){
-    return this.httpClient.get(this.host+"/operations?page="+page+"$size="+size)
+    return this.httpClient.get(this.host+"/operations?page="+page+"&size="+size)
   }
   public getPersonnes(page:number,size:number){
     return this.httpClient.get(this.host+"/personnes?page="+page+"&size="+size);
@@ -61,33 +61,42 @@ export class CatalogueService {
   }
 
   public getSanctionsbyAid(id:String,page:number,size:number){
-    return this.httpClient.get(this.host+"/sanctions/search/byAid?mc="+id+"&page="+page+"$size="+size)
+    return this.httpClient.get(this.host+"/sanctions/search/byAid?mc="+id+"&page="+page+"&size="+size)
   }
 
   public getPersonnesbyId(id:String,page:number,size:number){
-    return this.httpClient.get(this.host+"/personnes/search/byId?mc="+id+"&page="+page+"$size="+size)
+    return this.httpClient.get(this.host+"/personnes/search/byId?mc="+id+"&page="+page+"&size="+size)
+  }
+  public getPersonnesId(id:String){
+    return this.httpClient.get(this.host+"/personnes/"+id)
+  }
+  public getUtilisateursId(id:String){
+    return this.httpClient.get(this.host+"/utilisateurs/"+id)
+  }
+  public getAntecdentsId(id:String) {
+    return this.httpClient.get(this.host+"/antecedents/"+id)
+  }
+  public getSanctionsId(id:String){
+    return this.httpClient.get(this.host+"/sanctions/"+id)
   }
 
   public getAntecedentsById(id: string,page:number,size:number){
-    return this.httpClient.get(this.host+"/antecedents/search/byId?mc="+id+"&page="+page+"$size="+size)
+    return this.httpClient.get(this.host+"/antecedents/search/byId?mc="+id+"&page="+page+"&size="+size)
   }
 
 
   public getUtilisateursById(id: string,page:number,size:number){
-    return this.httpClient.get(this.host+"/utilisateurs/search/byId?mc="+id+"&page="+page+"$size="+size)
+    return this.httpClient.get(this.host+"/utilisateurs/search/byId?mc="+id+"&page="+page+"&size="+size)
   }
   public getSanctionsById(id: string,page:number,size:number){
-    return this.httpClient.get(this.host+"/sanctions/search/byId?mc="+id+"&page="+page+"$size="+size)
+    return this.httpClient.get(this.host+"/sanctions/search/byId?mc="+id+"&page="+page+"&size="+size)
   }
+
 
 
   public deleteAntecedent(url:String){
     // @ts-ignore
     return this.httpClient.delete(this.host+"/listAntecedents/"+url);
-  }
-  public deleteOperation(url:String){
-    // @ts-ignore
-    return this.httpClient.delete(url);
   }
   public deletePersonne(url:String){
     // @ts-ignore
@@ -95,11 +104,11 @@ export class CatalogueService {
   }
   public deleteSanction(url:String){
     // @ts-ignore
-    return this.httpClient.delete(url);
+    return this.httpClient.delete(this.host+"/listSanctions/"+url);
   }
   public deleteUtilisateur(url:String){
     // @ts-ignore
-    return this.httpClient.delete(url);
+    return this.httpClient.delete(this.host+"/listUtilisateurs/"+url);
   }
 
 
@@ -124,4 +133,17 @@ export class CatalogueService {
     return this.httpClient.post(url,data);
   }
 
+
+  public editRessource(url:String,data:any){
+    // @ts-ignore
+    return this.httpClient.put(url,data);
+  }
+  public changepass(url:String){
+    // @ts-ignore
+    return this.httpClient.put(url);
+  }
+
+  getUserLogin(login:String,password:String) {
+    return this.httpClient.get(this.host+"/utilisateurs/search/byLogin?login="+login+"&password="+password)
+  }
 }

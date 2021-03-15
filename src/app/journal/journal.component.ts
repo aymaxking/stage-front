@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {CatalogueService} from '../services/catalogue.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-journal',
@@ -14,9 +15,15 @@ export class JournalComponent implements OnInit {
   public totalPages: number=0;
   public pages: Array<number>=Array();
 
-  constructor(private catService:CatalogueService) { }
-
+  constructor(private catService:CatalogueService,private activatedRoute:ActivatedRoute,private router:Router) {
+  }
   ngOnInit(): void {
+    if(!localStorage.getItem("isLogin"))
+      this.router.navigateByUrl("")
+    else{
+      if(localStorage.getItem("type")!="admin")
+        this.router.navigateByUrl("/personnes")
+    }
   }
 
   onGetOperations() {
@@ -46,17 +53,12 @@ export class JournalComponent implements OnInit {
 
   }
 
-  onDeleteOperation(o: any) {
-    let conf=confirm("Etes vous sure?")
-    if(conf) {
-      this.catService.deleteOperation(o._links.self.href)
-        .subscribe(data=>{
-          this.operations=data;
-        },err => {
-          console.log(err);
-        })
-    }
+  logout() {
+    localStorage.clear()
+    this.router.navigateByUrl("")
   }
+
+
   onPage(i: number, value: any) {
     this.currentPage=i;
     this.onGetOperations()

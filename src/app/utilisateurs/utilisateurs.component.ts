@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {CatalogueService} from '../services/catalogue.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-utilisateurs',
@@ -17,7 +17,7 @@ export class UtilisateursComponent implements OnInit {
   public totalPages: number=0;
   public pages: Array<number>=Array();
 
-  constructor(private catService:CatalogueService,private activatedRoute:ActivatedRoute) {
+  constructor(private catService:CatalogueService,private activatedRoute:ActivatedRoute,private router:Router) {
     this.activatedRoute.queryParams.subscribe(data=> {
       this.idutilisateur = data.uid;
       if (this.idutilisateur != ""||this.idutilisateur!=null) {
@@ -35,9 +35,14 @@ export class UtilisateursComponent implements OnInit {
   }
 
 
-  ngOnInit(): void {
-
-  }
+    ngOnInit(): void {
+        if(!localStorage.getItem("isLogin"))
+            this.router.navigateByUrl("")
+        else{
+            if(localStorage.getItem("type")!="admin")
+                this.router.navigateByUrl("/personnes")
+        }
+    }
 
   onGetUtilisateurs() {
     this.catService.getUtilisateurs(this.currentPage, this.size)
@@ -62,14 +67,13 @@ export class UtilisateursComponent implements OnInit {
   }
 
   onUpdateUtilisateur(u: any) {
-
-
+    this.router.navigateByUrl("modifierutilisateur/"+u)
   }
 
   onDeleteUtilisateur(u: any) {
     let conf=confirm("Etes vous sure?")
     if(conf) {
-      this.catService.deleteUtilisateur(u._links.self.href)
+      this.catService.deleteUtilisateur(u)
         .subscribe(data=>{
           this.utilisateurs=data;
         },err => {
@@ -81,4 +85,11 @@ export class UtilisateursComponent implements OnInit {
     this.currentPage=i;
     this.onGetUtilisateurs()
   }
+
+
+
+    logout() {
+        localStorage.clear()
+        this.router.navigateByUrl("")
+    }
 }

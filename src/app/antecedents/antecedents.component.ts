@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {CatalogueService} from '../services/catalogue.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-antecedents',
@@ -13,12 +13,14 @@ export class AntecedentsComponent implements OnInit {
   public antecedents:any;
   idpersonne = '';
   idantecedent = '';
+  iduser: string | null = '';
+  type = localStorage.getItem("type")
   public size:number=10;
   public currentPage:number=0;
   public totalPages: number=5;
   public pages: Array<number>=Array();
 
-  constructor(private catService:CatalogueService,private activatedRoute:ActivatedRoute) {
+  constructor(private catService:CatalogueService,private activatedRoute:ActivatedRoute,private router:Router) {
    this.activatedRoute.queryParams.subscribe(data=>{
      this.idpersonne=data.pid;
      this.idantecedent=data.aid;
@@ -51,6 +53,8 @@ export class AntecedentsComponent implements OnInit {
 
 
   ngOnInit(): void {
+    if(!localStorage.getItem("isLogin"))
+      this.router.navigateByUrl("")
 
   }
 
@@ -66,7 +70,7 @@ export class AntecedentsComponent implements OnInit {
   onDeleteAntecedent(a:any) {
     let conf=confirm("Etes vous sure?")
     if(conf) {
-      this.catService.deleteAntecedent(a+"/1")
+      this.catService.deleteAntecedent(a+"/"+localStorage.getItem("id"))
         .subscribe(data=>{
           this.antecedents=data;
         },err => {
@@ -87,8 +91,13 @@ export class AntecedentsComponent implements OnInit {
       })
   }
 
-  onUpdateAntecedent(a: any) {
+  logout() {
+    localStorage.clear()
+    this.router.navigateByUrl("")
+  }
 
+  onUpdateAntecedent(a: any) {
+    this.router.navigateByUrl("modifierantecedent/"+a)
   }
 
   onPage(i: number, value: any) {

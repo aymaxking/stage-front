@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {CatalogueService} from '../services/catalogue.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-personnes',
@@ -15,8 +16,12 @@ export class PersonnesComponent implements OnInit {
   public currentPage:number=0;
   public totalPages: number=0;
   public pages: Array<number>=Array();
+  type = localStorage.getItem("type")
+  private trustedurl: any;
 
-  constructor(private catService:CatalogueService,private activatedRoute:ActivatedRoute) {
+
+
+  constructor(private catService:CatalogueService,private activatedRoute:ActivatedRoute,private router:Router,protected sanitizer: DomSanitizer) {
     this.activatedRoute.queryParams.subscribe(data=>{
         this.idpersonne=data.pid;
         if (this.idpersonne!=""){
@@ -35,6 +40,9 @@ export class PersonnesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(!localStorage.getItem("isLogin"))
+      this.router.navigateByUrl("")
+
   }
 
   onGetPersonnes() {
@@ -46,6 +54,11 @@ export class PersonnesComponent implements OnInit {
         this.pages=new Array<number>(this.totalPages);      },err => {
         console.log(err);
       })
+  }
+
+
+  atob(blob:string){
+   return  this.sanitizer.bypassSecurityTrustResourceUrl('data:image/*;charset=utf-8;base64,'+blob)
   }
 
   onChercher(form: any) {
@@ -61,19 +74,24 @@ export class PersonnesComponent implements OnInit {
   }
 
   onUpdatePersonne(p: any) {
-
+   this.router.navigateByUrl("modifierpersonne/"+p)
   }
 
   onDeletePersonne(p: any) {
     let conf=confirm("Etes vous sure?")
     if(conf) {
-      this.catService.deletePersonne(p+"/1")
+      this.catService.deletePersonne(p+"/"+localStorage.getItem("id"))
         .subscribe(data=>{
           this.personnes=data;
         },err => {
           console.log(err);
         })
     }
+  }
+
+  logout() {
+    localStorage.clear()
+    this.router.navigateByUrl("")
   }
   onPage(i: number, value: any) {
     this.currentPage=i;

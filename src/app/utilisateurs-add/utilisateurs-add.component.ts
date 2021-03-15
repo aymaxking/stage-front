@@ -12,10 +12,15 @@ export class UtilisateursAddComponent implements OnInit {
   constructor(private catService:CatalogueService,private  router:Router) { }
 
   ngOnInit(): void {
+    if(!localStorage.getItem("isLogin"))
+      this.router.navigateByUrl("")
+    else{
+      if(localStorage.getItem("type")!="admin")
+        this.router.navigateByUrl("/personnes")
+    }
   }
-
   onSaveUtilisateur(value: any) {
-    this.catService.saveUtilisateur(this.catService.host+"/utilisateurs",value)
+    this.catService.saveUtilisateur(this.catService.host+"/listUtilisateurs",value)
       .subscribe(res=>{
         this.router.navigateByUrl("/utilisateurs");
       },err => {
